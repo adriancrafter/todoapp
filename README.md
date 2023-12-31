@@ -22,7 +22,7 @@ The project follows a layered architecture with an emphasis on the use of interf
 
 - **Repos:** Repositories for data storage and retrieval, implementing the repository pattern.
 
-- **SQL Queries:**Externalized SQL queries, easily editable in custom files, seamlessly embedded in the binaryd.
+- **SQL Queries:** Externalized queries, easily editable in custom files, seamlessly embedded in the binaryd.
 
 - **Services:** Business logic services with interfaces for alternative implementations.
 
