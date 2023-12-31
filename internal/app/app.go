@@ -11,7 +11,6 @@ import (
 	"github.com/adriancrafter/todoapp/internal/am/db/pg"
 	"github.com/adriancrafter/todoapp/internal/am/errors"
 	"github.com/adriancrafter/todoapp/internal/auth"
-	"github.com/adriancrafter/todoapp/internal/web"
 )
 
 const (
@@ -57,7 +56,7 @@ type App struct {
 	seeder   am.Seeder
 	i18n     *am.I18N
 	tm       *am.TemplateManager
-	web      *web.Server
+	web      *Server
 }
 
 // NewApp creates a new app instance
@@ -135,7 +134,7 @@ func (app *App) Setup(ctx context.Context) error {
 	app.authWeb.SetTemplateManager(app.tm)
 
 	// Web server
-	app.web = web.NewServer(app.router, app.fs, app.i18n, app.opts...)
+	app.web = NewServer(app.router, app.fs, app.i18n, app.opts...)
 	app.web.SetAuthController(app.authWeb)
 	err = app.web.Setup(ctx)
 	if err != nil {
