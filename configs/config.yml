@@ -1,0 +1,32 @@
+log:
+  output:
+    compact: true
+
+http:
+  web:
+    server:
+      host: localhost
+      port: 8080
+  api:
+    server:
+      host: localhost
+      port: 8081
+
+db:
+  pg:
+    host: "localhost"
+    port: 5432
+    database: "development"
+    schema: "todoapp"
+    user: "development"
+    pass: "development"
+    ssl: false
+    max-retries: 5
+
+  nats:
+    host: "localhost"
+    port: 4222
+
+  logging:
+    level: "debug"
+

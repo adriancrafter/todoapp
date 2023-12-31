@@ -1,0 +1,70 @@
+{
+  "username": "Username",
+  "usernames": "Usernames",
+
+  "password": "Password",
+
+  "user": "User",
+  "users": "Users",
+
+  "account": "Account",
+  "accounts": "Accounts",
+
+  "profile": "Profile",
+  "profiles": "Profiles",
+
+  "resource": "Resource",
+  "resources": "Resources",
+
+  "role": "Role",
+  "roles": "Roles",
+
+  "permission": "Permission",
+  "permissions": "Permissions",
+
+  "account-role": "Account Role",
+  "account-roles": "Account Roles",
+
+  "role-permission": "Role Permission",
+  "role-permissions": "Role Permissions",
+
+  "resource-permission": "Resource Permission",
+  "resource-permissions": "Resource Permissions",
+
+  "index": "Index",
+  "new": "New",
+  "edit": "Edit",
+  "show": "Show",
+  "delete": "Delete",
+  "signin": "Sign In",
+  "signup": "Sign Up",
+
+  "created_info_msg": "Created",
+  "updated_info_msg": "Updated",
+  "deleted_info_msg": "Deleted",
+  "signed_up_info_msg": "Signed up",
+  "confirmed_info_msg": "Email account confirmed",
+  "signed_in_info_msg": "Signed in",
+  "signed_out_info_msg": "Signed out",
+  "get_all_err_msg": "Cannot get entities list'",
+  "create_err_msg": "Cannot create entity",
+
+  "get_err_msg": "Cannot get entity",
+  "update_err_msg": "Cannot update entity",
+  "delete_err_msg": "Cannot delete entity ",
+  "input_values_err_msg": "Verify values",
+  "sign_in_err_msg": "Sign in error",
+  "credentials_err_msg": "Verify username and password",
+  "cannot_proc_err_msg": "It is not possible to process the request at this time",
+
+  "role_appended_info_msg": "Role appended",
+  "role_removed_info_msg": "Role removed",
+  "permission_appended_info_msg": "Permission appended",
+  "permission_removed_info_msg": "Permission removed",
+  "required_err_msg": "Required",
+  "min_length_err_msg": "Too short",
+  "max_length_err_msg": "Too long",
+  "not_allowed_err_msg": "Not in allowed list",
+  "not_email_err_msg": "Not an email address",
+  "conf_match_err_msg": "Does not match with confirmation"
+}

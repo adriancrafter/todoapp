@@ -1,0 +1,49 @@
+{{define "base"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{template "head" .}}</title>
+  <meta name="description" content="Appetite">
+  <meta name="author" content="adrianpk">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="/static/css/all.min.css">
+<!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">-->
+<!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css">-->
+</head>
+
+<body class="bg-gray-100">
+<header class="bg-blue-500 py-4 text-white">
+  <nav class="container mx-auto flex justify-between items-center">
+    <div class="flex items-center">
+      <img class="h-12" src="/static/img/todoapp_logo.png" alt="todoapp logo" />
+      <span class="text-xl ml-2 font-semibold">Appetite</span>
+    </div>
+    <ul class="flex space-x-4">
+      <li><a href="#" class="hover:text-gray-300">Home</a></li>
+      <li><a href="#" class="hover:text-gray-300">About</a></li>
+      <li><a href="#" class="hover:text-gray-300">Services</a></li>
+      <li><a href="#" class="hover:text-gray-300">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="container mx-auto p-8 py-12">
+  <div class="bg-white p-4 rounded shadow-md">
+    <!-- Flash message -->
+    <!--{template "flash" .}-->
+    <!-- Flash message -->
+    <!-- Body -->
+    {{template "body" .}}
+    <!-- Body -->
+  </div>
+</div>
+
+<footer class="bg-gray-800 text-white py-4">
+  <div class="container mx-auto text-center">
+    &copy; 2023 Appetite. All rights reserved.
+  </div>
+</footer>
+</body>
+</html>
+{{end}}

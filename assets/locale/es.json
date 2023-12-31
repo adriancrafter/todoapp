@@ -1,0 +1,66 @@
+{
+  "username": "Nombre de usuario",
+  "usernames": "Nombres de usuario",
+
+  "password": "Contraseña",
+
+  "user": "Usuario",
+  "users": "Usuarios",
+
+  "account": "Cuenta",
+  "accounts": "Cuentas",
+
+  "profile": "Perfil",
+  "profiles": "Perfiles",
+
+  "resource": "Recurso",
+  "resources": "Recursos",
+
+  "role": "Rol",
+  "roles": "Roles",
+
+  "permission": "Permiso",
+  "permissions": "Permisos",
+
+  "account-role": "Rol de Cuenta",
+  "account-roles": "Roles de Cuentas",
+
+  "role-permission": "Permiso de Rol",
+  "role-permissions": "Permisos de Rol",
+
+  "index": "Índice",
+  "new": "Nuevo",
+  "edit": "Editar",
+  "show": "Mostrar",
+  "delete": "Eliminar",
+  "signin": "Iniciar Sesión",
+  "signup": "Registrarse",
+
+  "created_info_msg": "Creado",
+  "updated_info_msg": "Actualizado",
+  "deleted_info_msg": "Eliminado",
+  "signed_up_info_msg": "Registrado",
+  "confirmed_info_msg": "Cuenta de email confirmada",
+  "signed_in_info_msg": "Sesión iniciada",
+  "signed_out_info_msg": "Sesión cerrada",
+
+  "get_all_err_msg": "No se puede obtener la lista de entidades",
+  "create_err_msg": "No se puede crear la entidad",
+  "get_err_msg": "No se puede obtener la entidad",
+  "update_err_msg": "No se puede actualizar la entidad",
+  "delete_err_msg": "No se puede eliminar la entidad",
+  "input_values_err_msg": "Verifica los valores",
+  "sign_in_err_msg": "Error al iniciar sesión",
+  "credentials_err_msg": "Verifica el usuario y la contraseña",
+  "cannot_proc_err_msg": "No es posible procesar la solicitud en este momento",
+
+  "role_appended_info_msg": "Rol añadido",
+  "role_removed_info_msg": "Rol eliminado",
+
+  "required_err_msg": "Requerido",
+  "min_length_err_msg": "Demasiado corto",
+  "max_length_err_msg": "Demasiado largo",
+  "not_allowed_err_msg": "No está en la lista permitida",
+  "not_email_err_msg": "No es una dirección de correo electrónico",
+  "conf_match_err_msg": "No coincide con la confirmación"
+}
