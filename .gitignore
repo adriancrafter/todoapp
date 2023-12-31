@@ -1,0 +1,3 @@
+main
+*.bak
+**/node_modules

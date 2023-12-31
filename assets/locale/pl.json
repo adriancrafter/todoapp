@@ -1,0 +1,66 @@
+{
+  "username": "Nazwa użytkownika",
+  "usernames": "Nazwy użytkowników",
+
+  "password": "Hasło",
+
+  "user": "Użytkownik",
+  "users": "Użytkownicy",
+
+  "account": "Konto",
+  "accounts": "Konta",
+
+  "profile": "Profil",
+  "profiles": "Profile",
+
+  "resource": "Zasób",
+  "resources": "Zasoby",
+
+  "role": "Rola",
+  "roles": "Role",
+
+  "permission": "Uprawnienie",
+  "permissions": "Uprawnienia",
+
+  "account-role": "Rola Konta",
+  "account-roles": "Role Kont",
+
+  "role-permission": "Uprawnienie Roli",
+  "role-permissions": "Uprawnienia Roli",
+
+  "index": "Indeks",
+  "new": "Nowy",
+  "edit": "Edytuj",
+  "show": "Pokaż",
+  "delete": "Usuń",
+  "signin": "Zaloguj Się",
+  "signup": "Zarejestruj Się",
+
+  "created_info_msg": "Utworzono",
+  "updated_info_msg": "Zaktualizowano",
+  "deleted_info_msg": "Usunięto",
+  "signed_up_info_msg": "Zarejestrowano",
+  "confirmed_info_msg": "Email potwierdzony",
+  "signed_in_info_msg": "Zalogowano",
+  "signed_out_info_msg": "Wylogowano",
+
+  "get_all_err_msg": "Nie można pobrać listy encji",
+  "create_err_msg": "Nie można utworzyć encji",
+  "get_err_msg": "Nie można pobrać encji",
+  "update_err_msg": "Nie można zaktualizować encji",
+  "delete_err_msg": "Nie można usunąć encji",
+  "input_values_err_msg": "Sprawdź wartości",
+  "sign_in_err_msg": "Błąd logowania",
+  "credentials_err_msg": "Sprawdź nazwę użytkownika i hasło",
+  "cannot_proc_err_msg": "Nie można obecnie przetworzyć żądania",
+
+  "role_appended_info_msg": "Rola dodana",
+  "role_removed_info_msg": "Rola usunięta",
+
+  "required_err_msg": "Wymagane",
+  "min_length_err_msg": "Za krótkie",
+  "max_length_err_msg": "Za długie",
+  "not_allowed_err_msg": "Nie znajduje się na liście dozwolonych",
+  "not_email_err_msg": "Nieprawidłowy adres email",
+  "conf_match_err_msg": "Nie zgadza się z potwierdzeniem"
+}

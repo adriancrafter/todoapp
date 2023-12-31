@@ -1,0 +1,12 @@
+{{define "debug"}} {{$user := .Data}} {{$action := .Action}} {{$errors := .Errors}} {{$loc := .Loc}} {{$csrf := .CSRF}}
+<hr>
+Debug:
+<hr>
+<p>Data: {{$user}}</p>
+<p>Action: {{$action}}</p>
+<p>Errors: {{$errors}}</p>
+<p>CSRF: {{$csrf}}</p>
+<p>Loc: {{$loc}}</p>
+<p>User: {{"user" | $loc.Localize}}</p>
+<hr>
+{{end}}

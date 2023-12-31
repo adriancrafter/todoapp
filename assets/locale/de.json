@@ -1,0 +1,65 @@
+{
+  "username": "Benutzername",
+  "usernames": "Benutzernamen",
+
+  "password": "Passwort",
+
+  "user": "Benutzer",
+  "users": "Benutzer",
+
+  "account": "Konto",
+  "accounts": "Konten",
+
+  "profile": "Profil",
+  "profiles": "Profile",
+
+  "resource": "Ressource",
+  "resources": "Ressourcen",
+
+  "role": "Rolle",
+  "roles": "Rollen",
+
+  "permission": "Berechtigung",
+  "permissions": "Berechtigungen",
+
+  "account-role": "Kontorolle",
+  "account-roles": "Kontorollen",
+
+  "role-permission": "Rollenberechtigung",
+  "role-permissions": "Rollenberechtigungen",
+
+  "index": "Index",
+  "new": "Neu",
+  "edit": "Bearbeiten",
+  "show": "Anzeigen",
+  "delete": "Löschen",
+  "signin": "Anmelden",
+  "signup": "Registrieren",
+
+  "created_info_msg": "Erstellt",
+  "updated_info_msg": "Aktualisiert",
+  "deleted_info_msg": "Gelöscht",
+  "signed_up_info_msg": "Registriert",
+  "confirmed_info_msg": "E-Mail bestätigt",
+  "signed_in_info_msg": "Angemeldet",
+  "signed_out_info_msg": "Abgemeldet",
+
+  "get_all_err_msg": "Liste der Entitäten kann nicht abgerufen werden",
+  "create_err_msg": "Entität kann nicht erstellt werden",
+  "get_err_msg": "Entität kann nicht abgerufen werden",
+  "update_err_msg": "Entität kann nicht aktualisiert werden",
+  "delete_err_msg": "Entität kann nicht gelöscht werden",
+  "input_values_err_msg": "Werte überprüfen",
+  "sign_in_err_msg": "Anmeldefehler",
+  "credentials_err_msg": "Benutzername und Passwort überprüfen",
+  "cannot_proc_err_msg": "Anfrage kann derzeit nicht verarbeitet werden",
+
+  "role_appended_info_msg": "Rolle hinzugefügt",
+  "role_removed_info_msg": "Rolle entfernt",
+  "required_err_msg": "Erforderlich",
+  "min_length_err_msg": "Zu kurz",
+  "max_length_err_msg": "Zu lang",
+  "not_allowed_err_msg": "Nicht in der erlaubten Liste",
+  "not_email_err_msg": "Keine E-Mail-Adresse",
+  "conf_match_err_msg": "Stimmt nicht mit der Bestätigung überein"
+}
