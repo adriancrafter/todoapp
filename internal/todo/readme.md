@@ -1,4 +1,4 @@
-# Feature: Todo List
+# `auth` package
 
 This package follows a feature-based organization approach, where all components related to a specific feature are grouped together within a single package. Unlike the traditional layered structure with separate packages for controllers, models, and other components, this approach keeps all parts of a feature within its own package. The files within the package are organized to provide a clear structure and separation of concerns.
 
