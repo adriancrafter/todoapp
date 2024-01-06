@@ -2,28 +2,8 @@ package auth
 
 import (
 	"context"
-	"net/http"
 
 	"github.com/adriancrafter/todoapp/internal/am"
-)
-
-type (
-	WebController interface {
-		am.Controller
-		Service() Service
-		UserIndex(w http.ResponseWriter, r *http.Request)
-		UserShow(w http.ResponseWriter, r *http.Request)
-		UserCreate(w http.ResponseWriter, r *http.Request)
-		UserUpdate(w http.ResponseWriter, r *http.Request)
-		UserPreDelete(w http.ResponseWriter, r *http.Request)
-		UserSoftDelete(w http.ResponseWriter, r *http.Request)
-		UserDelete(w http.ResponseWriter, r *http.Request)
-		UserPurge(w http.ResponseWriter, r *http.Request)
-		UserInitSignin(w http.ResponseWriter, r *http.Request)
-		UserSignin(w http.ResponseWriter, r *http.Request)
-		UserInitSignup(w http.ResponseWriter, r *http.Request)
-		UserSignup(w http.ResponseWriter, r *http.Request)
-	}
 )
 
 type (
@@ -141,13 +121,13 @@ type (
 		//SignUpUser(user *model.UserDA) (am.ValErrorSet, error)
 		//ConfirmUser(slug, token string) error
 		//SignInUser(username, password string) (user vm.Service, err error)
-		SignInUser(ctc context.Context, credentials UserVM) (user UserVM, err error)
+		SignInUser(ctc context.Context, si SigninVM) (user UserVM, err error)
 	}
 )
 
 type (
 	Repo interface {
 		GetUser(ctx context.Context, userID string) (user User, err error)
-		SignIn(username, password string) (ua *UserAuth, err error)
+		SignIn(ctx context.Context, sivm Signin) (ua UserAuth, err error)
 	}
 )

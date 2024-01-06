@@ -45,7 +45,7 @@ type App struct {
 	router     *am.Router
 	authRepo   auth.Repo
 	authSvc    auth.Service
-	authWeb    *auth.MainWebController // TODO: Use WebController interface
+	authWeb    *auth.WebController // TODO: Use WebController interface
 	//authAPI    *auth.APIController
 	//todoRepo todo.Repo
 	//todoSvc  todo.Service
@@ -103,6 +103,10 @@ func (app *App) Setup(ctx context.Context) error {
 
 	// Databases
 	app.db = pg.NewDB(app.opts...)
+	err := app.db.Setup(ctx)
+	if err != nil {
+		return errors.Wrap(err, setupError)
+	}
 
 	// QueryManager manager
 	app.qm = am.NewQueryManager(app.queryFS, "pg", app.opts...)
@@ -113,17 +117,17 @@ func (app *App) Setup(ctx context.Context) error {
 
 	// Templates
 	app.tm = am.NewTemplateManager(app.templateFS, false, app.opts...)
-	err := app.tm.Setup(ctx)
+	err = app.tm.Setup(ctx)
 	if err != nil {
 		return errors.Wrap(err, setupError)
 	}
 
 	// Repos
-	//app.authRepo = auth.NewRepo(app.db, app.qm, app.opts...)
+	app.authRepo = auth.NewRepo(app.db, app.qm, app.opts...)
 	//app.todoRepo = todo.NewRepo(app.db, app.qm, app.opts...)
 
 	// Services
-	//app.authSvc = auth.NewService(app.authRepo, app.opts...)
+	app.authSvc = auth.NewService(app.authRepo, app.opts...)
 	//app.todoSvc = todo.NewService(app.todoRepo, app.authRepo, app.opts...)
 
 	// Router
