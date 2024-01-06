@@ -9,17 +9,27 @@ import (
 type (
 	MainService struct {
 		*am.SimpleCore
-		repo MainRepo
+		repo Repo
 	}
 )
 
-func NewService(r MainRepo, opts ...am.Option) *MainService {
+func NewService(r Repo, opts ...am.Option) *MainService {
 	return &MainService{
 		SimpleCore: am.NewCore("todo-service", opts...),
 		repo:       r,
 	}
 }
 
-func (as *MainService) SignInUser(ctx context.Context, credentials UserVM) (user UserVM, err error) {
-	return UserVM{}, nil
+func (as *MainService) SignInUser(ctx context.Context, sivm SigninVM) (user UserVM, err error) {
+	signin := ToSigninModel(sivm)
+
+	userAuth, err := as.repo.SignIn(ctx, signin)
+	if err != nil {
+		as.Log().Errorf("error signing in: %s", err.Error())
+		return UserVM{}, err
+	}
+
+	userVM := ToUserVM(userAuth.User)
+
+	return userVM, nil
 }

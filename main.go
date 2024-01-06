@@ -33,7 +33,7 @@ var (
 	//go:embed all:assets/templates/web/*
 	templatesFS embed.FS
 
-	//go:embed all:assets/web/static/**/*.css
+	//go:embed all:assets/web/static/**/*.css all:assets/web/static/**/*.png
 	staticFS embed.FS
 
 	//go:embed all:assets/locale/*.json
