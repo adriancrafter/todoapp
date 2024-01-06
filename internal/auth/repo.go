@@ -32,10 +32,6 @@ func NewRepo(db am.DB, qm *am.QueryManager, opts ...am.Option) *MainRepo {
 }
 
 func (r *MainRepo) GetUser(ctx context.Context, userID string) (user User, err error) {
-	//err = r.db.GetErr(ctx, &user, "SELECT * FROM users WHERE id = $1", userID)
-	//if err != nil {
-	//	return user, err
-	//}
 	return user, errors.NewError("not implemented")
 }
 
@@ -55,6 +51,7 @@ func (r *MainRepo) SignIn(ctx context.Context, si Signin) (ua UserAuth, err erro
 	}
 
 	// Validate password
+	// NOTE: This should be done in service layer if does not create too much burden.
 	err = bcrypt.CompareHashAndPassword([]byte(uada.PasswordDigest.String), []byte(si.Password))
 	if err != nil {
 		return ua, errors.NewError("invalid password")
