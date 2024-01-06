@@ -72,7 +72,7 @@ Conversion utilities for converting between persistence data access and business
 
 ### - `interface.go`
 
-Contains interface definitions for API and web controllers, service, repository, and other components related to the todo feature.
+Contains interface definitions for API and web service, repository, and other components related to the todo feature.
 
 ## Note
 

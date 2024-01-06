@@ -26,7 +26,7 @@ type (
 		authService auth.Service
 		//todoService    todo.Service
 		router         *am.Router
-		authController auth.WebController
+		authController *auth.WebController
 		//todoController todo.WebController
 		fs   am.Filesystems
 		i18n *am.I18N
@@ -120,7 +120,7 @@ func (srv *Server) Router() (router *am.Router) {
 	return srv.router
 }
 
-func (srv *Server) SetAuthController(c auth.WebController) {
+func (srv *Server) SetAuthController(c *auth.WebController) {
 	srv.authController = c
 	srv.addController(c)
 }

@@ -4,7 +4,7 @@ import (
 	"github.com/adriancrafter/todoapp/internal/am"
 )
 
-func (c *MainWebController) routes() {
+func (c *WebController) routes() {
 	c.Router().HandleFunc("/users", c.UserIndex).Methods("GET")
 	c.Router().HandleFunc("/users/{tableID}", c.UserShow).Methods("GET")
 	c.Router().HandleFunc("/users", c.UserCreate).Methods("POST")

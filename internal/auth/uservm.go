@@ -14,4 +14,10 @@ type (
 		EmailConfirmation string `json:"emailConfirmation" schema:"email-confirmation"`
 		IsNew             bool   `json:"-" schema:"-"`
 	}
+
+	SigninVM struct {
+		TenantID string `json:"tenantID" schema:"tenant-id"`
+		Username string `json:"username" schema:"username"`
+		Password string `json:"password" schema:"password"`
+	}
 )

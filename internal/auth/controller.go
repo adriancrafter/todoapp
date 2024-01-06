@@ -24,15 +24,15 @@ const (
 )
 
 type (
-	MainWebController struct {
+	WebController struct {
 		*am.SimpleController
 		svc Service
 	}
 )
 
-func NewWebController(parent *am.Router, svc Service, opts ...am.Option) *MainWebController {
+func NewWebController(parent *am.Router, svc Service, opts ...am.Option) *WebController {
 	name := fmt.Sprintf("%s-web-controller", authController)
-	c := &MainWebController{
+	c := &WebController{
 		SimpleController: am.NewController(name, parent, authPath, opts...),
 		svc:              svc,
 	}
@@ -40,21 +40,21 @@ func NewWebController(parent *am.Router, svc Service, opts ...am.Option) *MainWe
 	return c
 }
 
-func (c *MainWebController) Setup(ctx context.Context) error {
+func (c *WebController) Setup(ctx context.Context) error {
 	c.routes()
 	return nil
 }
 
-func (c *MainWebController) UserIndex(w http.ResponseWriter, r *http.Request)      {}
-func (c *MainWebController) UserShow(w http.ResponseWriter, r *http.Request)       {}
-func (c *MainWebController) UserCreate(w http.ResponseWriter, r *http.Request)     {}
-func (c *MainWebController) UserUpdate(w http.ResponseWriter, r *http.Request)     {}
-func (c *MainWebController) UserPreDelete(w http.ResponseWriter, r *http.Request)  {}
-func (c *MainWebController) UserSoftDelete(w http.ResponseWriter, r *http.Request) {}
-func (c *MainWebController) UserDelete(w http.ResponseWriter, r *http.Request)     {}
-func (c *MainWebController) UserPurge(w http.ResponseWriter, r *http.Request)      {}
+func (c *WebController) UserIndex(w http.ResponseWriter, r *http.Request)      {}
+func (c *WebController) UserShow(w http.ResponseWriter, r *http.Request)       {}
+func (c *WebController) UserCreate(w http.ResponseWriter, r *http.Request)     {}
+func (c *WebController) UserUpdate(w http.ResponseWriter, r *http.Request)     {}
+func (c *WebController) UserPreDelete(w http.ResponseWriter, r *http.Request)  {}
+func (c *WebController) UserSoftDelete(w http.ResponseWriter, r *http.Request) {}
+func (c *WebController) UserDelete(w http.ResponseWriter, r *http.Request)     {}
+func (c *WebController) UserPurge(w http.ResponseWriter, r *http.Request)      {}
 
-func (c *MainWebController) UserInitSignin(w http.ResponseWriter, r *http.Request) {
+func (c *WebController) UserInitSignin(w http.ResponseWriter, r *http.Request) {
 	userVM := UserVM{}
 
 	res := c.NewResponse(w, r, userVM, nil)
@@ -73,12 +73,12 @@ func (c *MainWebController) UserInitSignin(w http.ResponseWriter, r *http.Reques
 	}
 }
 
-func (c *MainWebController) UserSignin(w http.ResponseWriter, r *http.Request) {
+func (c *WebController) UserSignin(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
 	// Decode request data into a form.
-	userVM := UserVM{}
-	err := c.FormToModel(r, &userVM)
+	signinVM := SigninVM{}
+	err := c.FormToModel(r, &signinVM)
 	if err != nil {
 		c.ErrorRedirect(w, r, AuthPath(), c.ErrorMsg().ProcessErr, err)
 		return
@@ -88,14 +88,14 @@ func (c *MainWebController) UserSignin(w http.ResponseWriter, r *http.Request) {
 	//// ip := "0.0.0.0/24"
 	//// TODO: Provide IP to the service in order to register last IP
 	//// Can be used to detect spurious logins.
-	//// user, err := c.MainService().SignInUser(userVM.Username, userVM.Password, ip)
-	user, err := c.Service().SignInUser(ctx, userVM)
+	//// user, err := c.MainService().SignInUser(signinVM.Username, signinVM.Password, ip)
+	user, err := c.Service().SignInUser(ctx, signinVM)
 	if err != nil {
 		c.ErrorRedirect(w, r, AuthPath(), c.ErrorMsg().ProcessErr, err)
 		return
 	}
 
-	c.Log().Debug("UserDA signed in", "user", user.Username)
+	c.Log().Debugf("user %s signed in", user.Username)
 	//if err != nil {
 	//	msgID := c.ErrorMsg().SigninErr
 	//
@@ -126,7 +126,7 @@ func (c *MainWebController) UserSignin(w http.ResponseWriter, r *http.Request) {
 	//c.RedirectWithFlash(w, r, UserPath(), m, am.InfoMT)
 }
 
-func (c *MainWebController) rerenderUserForm(w http.ResponseWriter, r *http.Request,
+func (c *WebController) rerenderUserForm(w http.ResponseWriter, r *http.Request,
 	data interface{},
 	valErrors am.ValErrorSet,
 	handlerTemplate string,
@@ -151,7 +151,7 @@ func (c *MainWebController) rerenderUserForm(w http.ResponseWriter, r *http.Requ
 	return
 }
 
-func (c *MainWebController) UserInitSignup(w http.ResponseWriter, r *http.Request) {
+func (c *WebController) UserInitSignup(w http.ResponseWriter, r *http.Request) {
 	//userVM := vm.UserDA{}
 	//
 	//res := c.NewResponse(w, r, userVM, nil)
@@ -164,7 +164,7 @@ func (c *MainWebController) UserInitSignup(w http.ResponseWriter, r *http.Reques
 	//}
 }
 
-func (c *MainWebController) UserSignup(w http.ResponseWriter, r *http.Request) {
+func (c *WebController) UserSignup(w http.ResponseWriter, r *http.Request) {
 	// Parse form values
 	err := r.ParseForm()
 	if err != nil {
@@ -189,17 +189,17 @@ func (c *MainWebController) UserSignup(w http.ResponseWriter, r *http.Request) {
 
 // Handler interface
 
-func (c *MainWebController) Service() Service {
+func (c *WebController) Service() Service {
 	return c.svc
 }
 
 // Helpers
 
-func (c *MainWebController) User(r *http.Request) (userID uuid.UUID, err error) {
+func (c *WebController) User(r *http.Request) (userID uuid.UUID, err error) {
 	panic("not implemented yet")
 }
 
-func (c *MainWebController) closeBody(body io.ReadCloser) {
+func (c *WebController) closeBody(body io.ReadCloser) {
 	if err := body.Close(); err != nil {
 		c.Log().Error(errors.Wrap(err, "failed to close body"))
 	}

@@ -167,7 +167,7 @@ func (m *Migrator) dbExists() bool {
 		var dbName string
 		err = rows.Scan(&dbName)
 		if err != nil {
-			m.Log().Errorf("Cannot read query result: %w", err)
+			m.Log().Errorf("cannot read query result: %w", err)
 			return false
 		}
 		return true
@@ -348,7 +348,7 @@ func (m *Migrator) Migrate() (err error) {
 
 		err = tx.Commit()
 		if err != nil {
-			msg := fmt.Sprintf("Cannot update migration table: %s\n", err.Error())
+			msg := fmt.Sprintf("cannot update migration table: %s\n", err.Error())
 			m.Log().Errorf("migrate commit error: %s", msg)
 			err = tx.Rollback()
 			if err != nil {
@@ -357,7 +357,7 @@ func (m *Migrator) Migrate() (err error) {
 			return errors.NewError(msg)
 		}
 
-		m.Log().Infof("Migration executed: %s", name)
+		m.Log().Infof("migration executed: %s", name)
 	}
 
 	return nil
@@ -405,7 +405,7 @@ func (m *Migrator) rollback(steps int) error {
 
 		// Continue if already applied
 		if !m.canApplyRollback(idx, name, tx) {
-			m.Log().Infof("Rollback '%s' cannot be executed", name)
+			m.Log().Infof("rollback '%s' cannot be executed", name)
 			tx.Commit() // No need to handle eventual error here
 			continue
 		}
@@ -432,7 +432,7 @@ func (m *Migrator) rollback(steps int) error {
 
 		err = tx.Commit()
 		if err != nil {
-			msg := fmt.Sprintf("Cannot delete migration table: %s\n", err.Error())
+			msg := fmt.Sprintf("cannot delete migration table: %s\n", err.Error())
 			m.Log().Errorf("rollback commit error: %s", msg)
 			err = tx.Rollback()
 			if err != nil {
@@ -443,7 +443,7 @@ func (m *Migrator) rollback(steps int) error {
 
 		processed++
 		if processed == steps {
-			m.Log().Infof("Rollback executed: %s", name)
+			m.Log().Infof("rollback executed: %s", name)
 			return nil
 		}
 	}
@@ -455,13 +455,13 @@ func (m *Migrator) rollback(steps int) error {
 func (m *Migrator) SoftReset() error {
 	err := m.RollbackAll()
 	if err != nil {
-		log.Printf("Cannot rollback database: %s", err.Error())
+		log.Printf("cannot rollback database: %s", err.Error())
 		return err
 	}
 
 	err = m.Migrate()
 	if err != nil {
-		log.Printf("Cannot migrate database: %s", err.Error())
+		log.Printf("cannot migrate database: %s", err.Error())
 		return err
 	}
 
@@ -516,7 +516,7 @@ func (m *Migrator) cancelRollback(index int64, name string, tx *sql.Tx) bool {
 	r, err := tx.Query(st)
 
 	if err != nil {
-		m.Log().Errorf("Cannot determine rollback status: %w", err)
+		m.Log().Errorf("cannot determine rollback status: %w", err)
 		return true
 	}
 
@@ -524,7 +524,7 @@ func (m *Migrator) cancelRollback(index int64, name string, tx *sql.Tx) bool {
 		var applied sql.NullBool
 		err = r.Scan(&applied)
 		if err != nil {
-			m.Log().Errorf("Cannot determine migration status: %w", err)
+			m.Log().Errorf("cannot determine migration status: %w", err)
 			return true
 		}
 
@@ -543,7 +543,7 @@ func (m *Migrator) canApplyMigration(index int64, name string, tx *sql.Tx) bool 
 	defer r.Close()
 
 	if err != nil {
-		m.Log().Errorf("Cannot determine migration status: %w", err)
+		m.Log().Errorf("cannot determine migration status: %w", err)
 		return false
 	}
 
@@ -551,7 +551,7 @@ func (m *Migrator) canApplyMigration(index int64, name string, tx *sql.Tx) bool 
 		var exists sql.NullBool
 		err = r.Scan(&exists)
 		if err != nil {
-			m.Log().Errorf("Cannot determine migration status: %s", err)
+			m.Log().Errorf("cannot determine migration status: %s", err)
 			return false
 		}
 

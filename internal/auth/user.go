@@ -37,6 +37,12 @@ type (
 		User
 		PermissionTags sql.NullString
 	}
+
+	Signin struct {
+		Username string
+		Password string
+		Email    string
+	}
 )
 
 func NewUser(username, password string) *User {

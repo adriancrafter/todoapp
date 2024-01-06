@@ -10,6 +10,17 @@ func ToUserVM(m User) UserVM {
 	}
 }
 
+// View model to model
+
+func ToSigninModel(si SigninVM) Signin {
+	return Signin{
+		Username: si.Username,
+		Password: si.Password,
+	}
+}
+
+// Model to view model
+
 func ToUserListVM(m []User) (vm []UserVM) {
 	for _, user := range m {
 		vm = append(vm, ToUserVM(user))

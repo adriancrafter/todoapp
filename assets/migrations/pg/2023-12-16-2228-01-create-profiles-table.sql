@@ -1,7 +1,7 @@
 --UP
 CREATE TABLE profiles (
                           id UUID PRIMARY KEY,
-                          tenant_id VARCHAR(128),
+                          tenant_id UUID,
                           slug VARCHAR(64) UNIQUE,
                           owner_id UUID REFERENCES users(id),
                           account_type VARCHAR(36),
@@ -23,11 +23,12 @@ CREATE TABLE profiles (
 ALTER TABLE profiles
     ADD COLUMN geolocation geography (Point,4326),
     ADD COLUMN is_active BOOLEAN,
-    ADD COLUMN is_deleted BOOLEAN,
-    ADD COLUMN created_by_id UUID REFERENCES users(id),
-    ADD COLUMN updated_by_id UUID REFERENCES users(id),
-    ADD COLUMN created_at TIMESTAMP WITH TIME ZONE,
-    ADD COLUMN updated_at TIMESTAMP WITH TIME ZONE;
+    ADD COLUMN created_by_id UUID references users(id),
+    ADD COLUMN updated_by_id UUID references users(id),
+    ADD COLUMN deleted_by_id UUID references users(id),
+    ADD COLUMN created_at TIMESTAMP,
+    ADD COLUMN updated_at TIMESTAMP,
+    ADD COLUMN deleted_at TIMESTAMP;
 
 --DOWN
 DROP TABLE profiles;
