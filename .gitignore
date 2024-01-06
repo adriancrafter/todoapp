@@ -1,3 +1,4 @@
-main
-*.bak
 **/node_modules
+*.bak
+/bin
+main
