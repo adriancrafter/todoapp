@@ -29,7 +29,7 @@ func NewDB(opts ...am.Option) *DB {
 	}
 }
 
-func (db *DB) Start(ctx context.Context) error {
+func (db *DB) Setup(ctx context.Context) error {
 	return db.Connect(ctx)
 }
 
@@ -45,6 +45,8 @@ func (db *DB) Connect(ctx context.Context) error {
 		msg := fmt.Sprintf("%s ping connection error", db.Name())
 		return errors.Wrap(err, msg)
 	}
+
+	db.db = sqlx.NewDb(pgDB, "postgres")
 
 	db.Log().Infof("%s database connected!", db.Name())
 	return nil
