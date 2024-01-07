@@ -15,6 +15,7 @@ import (
 	"github.com/google/uuid"
 
 	"github.com/adriancrafter/todoapp/internal/am"
+	"github.com/adriancrafter/todoapp/internal/am/db"
 	"github.com/adriancrafter/todoapp/internal/am/errors"
 )
 
@@ -48,7 +49,7 @@ type (
 		ID        uuid.UUID      `dbPath:"id" json:"id"`
 		Index     sql.NullInt64  `dbPath:"index" json:"index"`
 		Name      sql.NullString `dbPath:"name" json:"name"`
-		CreatedAt am.NullTime    `dbPath:"created_at" json:"createdAt"`
+		CreatedAt db.NullTime    `dbPath:"created_at" json:"createdAt"`
 	}
 )
 
