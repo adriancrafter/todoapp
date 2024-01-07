@@ -1,4 +1,4 @@
-package am
+package db
 
 import (
 	"database/sql/driver"
