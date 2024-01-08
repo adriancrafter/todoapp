@@ -89,6 +89,34 @@ func (sc *SimpleController) Router() *Router {
 	return sc.router
 }
 
+func (sc *SimpleController) Get(path string, handler func(http.ResponseWriter, *http.Request)) {
+	sc.Handle(path, handler, "GET")
+}
+
+func (sc *SimpleController) Post(path string, handler func(http.ResponseWriter, *http.Request)) {
+	sc.Handle(path, handler, "POST")
+}
+
+func (sc *SimpleController) Patch(path string, handler func(http.ResponseWriter, *http.Request)) {
+	sc.Handle(path, handler, "PATCH")
+}
+
+func (sc *SimpleController) Put(path string, handler func(http.ResponseWriter, *http.Request)) {
+	sc.Handle(path, handler, "PUT")
+}
+
+func (sc *SimpleController) Delete(path string, handler func(http.ResponseWriter, *http.Request)) {
+	sc.Handle(path, handler, "DELETE")
+}
+
+func (sc *SimpleController) Options(path string, handler func(http.ResponseWriter, *http.Request)) {
+	sc.Handle(path, handler, "OPTIONS")
+}
+
+func (sc *SimpleController) Handle(path string, handler func(http.ResponseWriter, *http.Request), method string) {
+	sc.Router().HandleFunc(path, handler).Methods(method)
+}
+
 func (sc *SimpleController) Handler() http.Handler {
 	return sc
 }
