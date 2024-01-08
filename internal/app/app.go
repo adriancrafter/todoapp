@@ -45,7 +45,7 @@ type App struct {
 	router     *am.Router
 	authRepo   auth.Repo
 	authSvc    auth.Service
-	authWeb    *auth.WebController // TODO: Use WebController interface
+	authWeb    *auth.WebController
 	//authAPI    *auth.APIController
 	//todoRepo todo.Repo
 	//todoSvc  todo.Service
