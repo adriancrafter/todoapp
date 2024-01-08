@@ -125,10 +125,6 @@ func (srv *Server) SetAuthController(c *auth.WebController) {
 	srv.addController(c)
 }
 
-//func (srv *Server) SetVenueController(c todo.WebController) {
-//	srv.todoWebController = c
-//}
-
 func (srv *Server) addController(c am.Controller) {
 	srv.router.PathPrefix(c.Path()).Handler(c)
 }
