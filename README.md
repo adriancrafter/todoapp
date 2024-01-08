@@ -42,4 +42,10 @@ The project follows a feature-based organization approach, where each feature is
 
 As the project evolves, additional features will be added, each following a similar distribution of file types within its own package. The consistent structure facilitates maintainability and scalability.
 
+## Notes
 
+## Notes
+
+## Notes
+
+After the foundational structure of the project is established in this exploratory phase, a comprehensive set of tests will then be developed to ensure thorough coverage of the codebase.

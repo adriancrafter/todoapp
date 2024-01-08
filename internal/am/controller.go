@@ -109,6 +109,10 @@ func (sc *SimpleController) Delete(path string, handler func(http.ResponseWriter
 	sc.Handle(path, handler, "DELETE")
 }
 
+func (sc *SimpleController) Head(path string, handler func(http.ResponseWriter, *http.Request)) {
+	sc.Handle(path, handler, "HEAD")
+}
+
 func (sc *SimpleController) Options(path string, handler func(http.ResponseWriter, *http.Request)) {
 	sc.Handle(path, handler, "OPTIONS")
 }

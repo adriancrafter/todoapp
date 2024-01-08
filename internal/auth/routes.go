@@ -1,16 +1,22 @@
 package auth
 
+// There are convenience helpers to generate app standard paths
+// but nothing prevents you from using your custom strings to define them.
+// c.[Verb]("/path/to/resource"), HandlerFunc)
 func (c *WebController) routes() {
-	c.Get(c.up.ResRoute(), c.UserIndex)
-	c.Get(c.up.ResSlugRoute(), c.UserShow)
-	c.Post(c.up.ResRoute(), c.UserCreate)
-	c.Put(c.up.ResSlugRoute(), c.UserUpdate)
-	c.Get(c.up.ResSlugRoute(), c.UserPreDelete)
-	c.Get(c.up.ResSlugRoute(), c.UserSoftDelete)
-	c.Delete(c.up.ResForceDeleteRoute(), c.UserDelete)
-	c.Delete(c.up.ResPurgeRoute(), c.UserPurge)
-	c.Get(c.ap.SignupRoute(), c.UserInitSignup)
-	c.Post(c.ap.SignupRoute(), c.UserSignup)
-	c.Get(c.ap.SigninPath(), c.UserInitSignin)
-	c.Post(c.ap.SigninPath(), c.UserSignin)
+	ur := c.userRoute
+	ar := c.authroute
+
+	c.Get(ur.Index(), c.UserIndex)
+	c.Get(ur.Slug(), c.UserShow)
+	c.Post(ur.Index(), c.UserCreate)
+	c.Put(ur.Slug(), c.UserUpdate)
+	c.Get(ur.Slug(), c.UserPreDelete)
+	c.Get(ur.Slug(), c.UserSoftDelete)
+	c.Delete(ur.ForceDelete(), c.UserDelete)
+	c.Delete(ur.Purge(), c.UserPurge)
+	c.Get(ar.Signup(), c.UserInitSignup)
+	c.Post(ar.Signup(), c.UserSignup)
+	c.Get(ar.Signin(), c.UserInitSignin)
+	c.Post(ar.Signin(), c.UserSignin)
 }

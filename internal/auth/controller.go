@@ -13,33 +13,39 @@ import (
 )
 
 const (
-	authPath       = "/auth"
-	authController = "auth"
-	authSignin     = "signin"
-	authSignup     = "signup"
-)
-
-const (
-	userRes = "user"
-	authRes = "auth"
+	authPath       = "/" + authRes
+	authController = authRes
+	signinHandler  = "signin"
+	signupHandler  = "signup"
 )
 
 type (
 	WebController struct {
 		*am.SimpleController
-		up  *am.ResWebPath // user resource web path
-		ap  *am.ResWebPath // auth resource web path
-		svc Service
+		userRoute *am.Route // user resource web path
+		authroute *am.Route // auth resource web path
+		svc       Service
+		userLink  *am.ResLink
+		authLink  *am.ResLink
 	}
 )
+
+// NOTE: Routes and Links are conceptually different type of entities although
+// they genereate the same kind of constructs.
+// Routes are used to generate paths to be used in controller handlers routes
+// while Links are used to generate paths to be used in templates and form
+// Eventually will be merged into one type but for now we prefer to keep them
+// separate.
 
 func NewWebController(parent *am.Router, svc Service, opts ...am.Option) *WebController {
 	name := fmt.Sprintf("%s-web-controller", authController)
 	c := &WebController{
 		SimpleController: am.NewController(name, parent, authPath, opts...),
-		up:               am.NewResWebPath(userRes),
-		ap:               am.NewResWebPath(authRes),
+		userRoute:        am.NewRoute(userRes),
+		authroute:        am.NewRoute(authRes),
 		svc:              svc,
+		userLink:         am.NewResLink(userRes),
+		authLink:         am.NewResLink(authRes),
 	}
 
 	return c
@@ -65,15 +71,15 @@ func (c *WebController) UserInitSignin(w http.ResponseWriter, r *http.Request) {
 	res := c.NewResponse(w, r, userVM, nil)
 	res.SetAction(c.userSignInAction())
 
-	t, err := c.Template().Get(authController, authSignin)
+	t, err := c.Template().Get(authController, signinHandler)
 	if err != nil {
-		c.ErrorRedirect(w, r, c.AuthPath(), c.ErrorMsg().ProcessErr, err)
+		c.ErrorRedirect(w, r, c.authLink.Index(), c.ErrorMsg().ProcessErr, err)
 		return
 	}
 
 	err = t.Execute(w, res)
 	if err != nil {
-		c.ErrorRedirect(w, r, c.AuthPath(), c.ErrorMsg().ProcessErr, err)
+		c.ErrorRedirect(w, r, c.authLink.Index(), c.ErrorMsg().ProcessErr, err)
 		return
 	}
 }
@@ -85,7 +91,7 @@ func (c *WebController) UserSignin(w http.ResponseWriter, r *http.Request) {
 	signinVM := SigninVM{}
 	err := c.FormToModel(r, &signinVM)
 	if err != nil {
-		c.ErrorRedirect(w, r, c.AuthPath(), c.ErrorMsg().ProcessErr, err)
+		c.ErrorRedirect(w, r, c.authLink.Index(), c.ErrorMsg().ProcessErr, err)
 		return
 	}
 
@@ -96,7 +102,7 @@ func (c *WebController) UserSignin(w http.ResponseWriter, r *http.Request) {
 	//// user, err := c.MainService().SignInUser(signinVM.Username, signinVM.Password, ip)
 	user, err := c.Service().SignInUser(ctx, signinVM)
 	if err != nil {
-		c.ErrorRedirect(w, r, c.AuthPath(), c.ErrorMsg().ProcessErr, err)
+		c.ErrorRedirect(w, r, c.authLink.Index(), c.ErrorMsg().ProcessErr, err)
 		return
 	}
 
@@ -143,13 +149,13 @@ func (c *WebController) rerenderUserForm(w http.ResponseWriter, r *http.Request,
 
 	ts, err := c.Template().Get(authController, handlerTemplate)
 	if err != nil {
-		c.ErrorRedirect(w, r, c.UserPath(), c.ErrorMsg().InputValuesErr, err)
+		c.ErrorRedirect(w, r, c.userLink.Index(), c.ErrorMsg().InputValuesErr, err)
 		return
 	}
 
 	err = ts.Execute(w, res)
 	if err != nil {
-		c.ErrorRedirect(w, r, c.UserPath(), c.ErrorMsg().ProcessErr, err)
+		c.ErrorRedirect(w, r, c.userLink.Index(), c.ErrorMsg().ProcessErr, err)
 		return
 	}
 
@@ -210,44 +216,29 @@ func (c *WebController) closeBody(body io.ReadCloser) {
 	}
 }
 
-// Paths
-func (c *WebController) UserPath() string {
-	return c.UserPath()
-}
-
-func (c *WebController) AuthPath() string {
-	return c.AuthPath()
-}
-
 // Form Actions
 
 // userCreateAction returns a new form action for user creatiom.
 func (c *WebController) userCreateAction() am.FormAction {
-	return am.NewFormAction(c.UserPath(), am.POST)
+	return am.NewFormAction(c.userLink.Index(), am.POST)
 }
 
 // userUpdateAction returns a new form action for user update.
 func (c *WebController) userUpdateAction(model am.Slugable) am.FormAction {
-	// TODO: This should return a path with identifier (slug) in it not a route.
-	// Implement ResSlugPath(slug)
-	// c.up.ResSlugRoute() => c.up.ResSlugPath(slug)
-	return am.NewFormAction(c.up.ResSlugRoute(), am.PUT)
+	return am.NewFormAction(c.userLink.Slug(model), am.PUT)
 }
 
 // userDeleteAction returns a new form action for user deletion.
 func (c *WebController) userDeleteAction(model am.Slugable) am.FormAction {
-	// TODO: This should return a path with identifier (slug) in it not a route.
-	// Implement ResSlugPath(slug)
-	// c.up.ResSlugRoute() => c.up.ResSlugPath(slug)
-	return am.NewFormAction(c.up.ResSlugRoute(), am.DELETE)
+	return am.NewFormAction(c.userLink.Slug(model), am.DELETE)
 }
 
-// userSignUpAction returns a new form action for user sign up.
+// userSignUpAction returns a new form action for user sign userRoute.
 func (c *WebController) userSignUpAction() am.FormAction {
-	return am.NewFormAction(c.ap.ResSignupRoute(), am.POST)
+	return am.NewFormAction(c.authLink.Signup(), am.POST)
 }
 
 // userSignInAction returns a new form action for user sign in.
 func (c *WebController) userSignInAction() am.FormAction {
-	return am.NewFormAction(c.ap.ResSigninRoute(), am.POST)
+	return am.NewFormAction(c.authLink.Signin(), am.POST)
 }
