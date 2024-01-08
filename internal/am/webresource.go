@@ -5,12 +5,16 @@ import (
 )
 
 type (
-	ResourceWebPath struct{}
+	ResWebPath struct {
+		root string
+	}
 )
 
-var (
-	WebPath = ResourceWebPath{}
-)
+func NewResWebPath(resName string) *ResWebPath {
+	return &ResWebPath{
+		root: resName,
+	}
+}
 
 type (
 	Slugable interface {
@@ -19,81 +23,95 @@ type (
 )
 
 // IndexPath returns index path under resource root path.
-func (rwp ResourceWebPath) IndexPath() string {
+func (rwp *ResWebPath) IndexPath() string {
 	return ""
 }
 
 // EditPath returns edit path under resource root path.
-func (rwp ResourceWebPath) EditPath() string {
-	return "/{id}/edit"
+func (rwp *ResWebPath) EditPath() string {
+	return "/{slug}/edit"
 }
 
 // NewPath returns new path under resource root path.
-func (rwp ResourceWebPath) NewPath() string {
+func (rwp *ResWebPath) NewPath() string {
 	return "/new"
 }
 
 // ShowPath returns show path under resource root path.
-func (rwp ResourceWebPath) ShowPath() string {
-	return "/{id}"
+func (rwp *ResWebPath) ShowPath() string {
+	return "/{slug}"
 }
 
 // CreatePath returns create path under resource root path.
-func (rwp ResourceWebPath) CreatePath() string {
+func (rwp *ResWebPath) CreatePath() string {
 	return ""
 }
 
 // UpdatePath returns update path under resource root path.
-func (rwp ResourceWebPath) UpdatePath() string {
-	return "/{id}"
+func (rwp *ResWebPath) UpdatePath() string {
+	return "/{slug}"
 }
 
 // InitDeletePath returns init delete path under resource root path.
-func (rwp ResourceWebPath) InitDeletePath() string {
-	return "/{id}/init-delete"
+func (rwp *ResWebPath) InitDeletePath() string {
+	return "/{slug}/init-delete"
 }
 
 // DeletePath returns delete path under resource root path.
-func (rwp ResourceWebPath) DeletePath() string {
-	return "/{id}"
+func (rwp *ResWebPath) DeletePath() string {
+	return "/{slug}"
 }
 
 // SignupPath returns signup path.
-func (rwp ResourceWebPath) SignupPath() string {
+func (rwp *ResWebPath) SignupPath() string {
 	return "/signup"
 }
 
-// LoginPath returns login path.
-func (rwp ResourceWebPath) LoginPath() string {
-	return "/login"
+// SigninPath returns login path.
+func (rwp *ResWebPath) SigninPath() string {
+	return "/signin"
 }
 
-// ResPath returns resource path.
-func (rwp ResourceWebPath) ResPath(rootPath string) string {
-	return "/" + rootPath + rwp.IndexPath()
+func (rwp *ResWebPath) SignupRoute() string {
+	return "/signup"
 }
 
-// ResPathEdit returns resource path edit link
-func (rwp ResourceWebPath) ResPathEdit(rootPath string, s Slugable) string {
-	return fmt.Sprintf("/%s/%s/edit", rootPath, s.Slug())
+func (rwp *ResWebPath) SigninRoute() string {
+	return "/signin"
 }
 
-// ResPathNew returns resource path new link
-func (rwp ResourceWebPath) ResPathNew(rootPath string) string {
-	return fmt.Sprintf("/%s/new", rootPath)
+func (rwp *ResWebPath) ResRoute() string {
+	return "/" + rwp.root + rwp.IndexPath()
 }
 
-// ResPathInitDelete returns resource path init delete link
-func (rwp ResourceWebPath) ResPathInitDelete(rootPath string, s Slugable) string {
-	return fmt.Sprintf("/%s/%s/init-delete", rootPath, s.Slug())
+func (rwp *ResWebPath) ResSlugRoute() string {
+	return "/%s/{slug}" + rwp.root + rwp.IndexPath()
 }
 
-// ResPathSlug returns resource path  slug link
-func (rwp ResourceWebPath) ResPathSlug(rootPath string, s Slugable) string {
-	return fmt.Sprintf("/%s/%s", rootPath, s.Slug())
+func (rwp *ResWebPath) ResEditRoute() string {
+	return fmt.Sprintf("/%s/{slug}/edit", rwp.root)
 }
 
-// ResAdmin returns resource path under admin path.
-func (rwp ResourceWebPath) ResAdmin(path, adminPathPfx string) string {
-	return fmt.Sprintf("/%s/%s", adminPathPfx, path)
+func (rwp *ResWebPath) ResNewRoute() string {
+	return fmt.Sprintf("/%s/new", rwp.root)
+}
+
+func (rwp *ResWebPath) ResInitDeleteRoute() string {
+	return fmt.Sprintf("/%s/{slug}/init-delete", rwp.root)
+}
+
+func (rwp *ResWebPath) ResForceDeleteRoute() string {
+	return fmt.Sprintf("/%s/{slug}/force-delete", rwp.root)
+}
+
+func (rwp *ResWebPath) ResPurgeRoute() string {
+	return fmt.Sprintf("/%s/purge", rwp.root)
+}
+
+func (rwp *ResWebPath) ResSigninRoute() string {
+	return fmt.Sprintf("/%s/signin", rwp.root)
+}
+
+func (rwp *ResWebPath) ResSignupRoute() string {
+	return fmt.Sprintf("/%s/signup", rwp.root)
 }
