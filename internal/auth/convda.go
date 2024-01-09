@@ -6,6 +6,7 @@ import (
 	"github.com/google/uuid"
 
 	"github.com/adriancrafter/todoapp/internal/am"
+	"github.com/adriancrafter/todoapp/internal/am/db"
 )
 
 func UserToDA(m User) UserDA {
@@ -72,6 +73,35 @@ func UserAuthToDA(m UserAuth) UserAuthDA {
 	}
 }
 
+func SigninToDA(m Signin) SigninDA {
+	return SigninDA{
+		TenantID: db.NewNullString(m.TenantID),
+		Slug:     db.NewNullString(m.Slug),
+		Username: db.NewNullString(m.Username),
+		Password: db.NewNullString(m.Password),
+		Email:    db.NewNullString(m.Email),
+		IP:       db.NewNullString(m.IP),
+		GeoData:  db.NewNullGeoPoint(m.GeoData),
+	}
+}
+
+func SigninDAToModel(da SigninDA) Signin {
+	var geoData am.GeoPoint
+	if da.GeoData.Valid {
+		geoData = da.GeoData.GeoPoint
+	}
+
+	return Signin{
+		TenantID: da.TenantID.String,
+		Slug:     da.Slug.String,
+		Username: da.Username.String,
+		Password: da.Password.String,
+		Email:    da.Email.String,
+		IP:       da.IP.String,
+		GeoData:  geoData,
+	}
+}
+
 func UserAuthDAToModel(da UserAuthDA) UserAuth {
 	user := UserDAToModel(da.UserDA)
 	return UserAuth{
@@ -80,19 +110,8 @@ func UserAuthDAToModel(da UserAuthDA) UserAuth {
 	}
 }
 
-// Type to null type
-
 // StringToUUID converts a string to a UUID.
 // If the conversion fails, it returns an error.
 func StringToUUID(input string) (uuid.UUID, error) {
 	return uuid.Parse(input)
-}
-
-// Null type to type
-
-func toNullString(s string) sql.NullString {
-	if s == "" {
-		return sql.NullString{Valid: false}
-	}
-	return sql.NullString{String: s, Valid: true}
 }

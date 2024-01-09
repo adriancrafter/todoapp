@@ -39,9 +39,13 @@ type (
 	}
 
 	Signin struct {
+		TenantID string
+		Slug     string
 		Username string
 		Password string
 		Email    string
+		IP       string
+		GeoData  am.GeoPoint
 	}
 )
 

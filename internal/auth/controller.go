@@ -31,11 +31,11 @@ type (
 )
 
 // NOTE: Routes and Links are conceptually different type of entities although
-// they genereate the same kind of constructs.
-// Routes are used to generate paths to be used in controller handlers routes
-// while Links are used to generate paths to be used in templates and form
-// Eventually will be merged into one type but for now we prefer to keep them
-// separate.
+// they generate the same kind of constructs.
+// `Routes` are used to build the paths to be used in controller handlers
+// while `Links` are used to generate paths to be used in templates and form
+// Eventually will be merged into one type if it makes sense but for now we are
+// keeping them separate.
 
 func NewWebController(parent *am.Router, svc Service, opts ...am.Option) *WebController {
 	name := fmt.Sprintf("%s-web-controller", authController)
@@ -85,15 +85,23 @@ func (c *WebController) UserInitSignin(w http.ResponseWriter, r *http.Request) {
 }
 
 func (c *WebController) UserSignin(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
-
-	// Decode request data into a form.
-	signinVM := SigninVM{}
-	err := c.FormToModel(r, &signinVM)
+	tenantID, err := am.GetTenantID(r)
 	if err != nil {
 		c.ErrorRedirect(w, r, c.authLink.Index(), c.ErrorMsg().ProcessErr, err)
 		return
 	}
+
+	ip := am.GetIPAddress(r)
+	gd := am.GetGeoData(r)
+
+	signinVM := NewSigninVM(tenantID, ip, gd)
+	err = c.FormToModel(r, &signinVM)
+	if err != nil {
+		c.ErrorRedirect(w, r, c.authLink.Index(), c.ErrorMsg().ProcessErr, err)
+		return
+	}
+
+	ctx := r.Context()
 
 	//// GetErr IP from user request
 	//// ip := "0.0.0.0/24"
@@ -134,7 +142,8 @@ func (c *WebController) UserSignin(w http.ResponseWriter, r *http.Request) {
 	//// Localize Ok info message, put it into a flash message
 	//// and redirect to index.
 	//m := c.Localize(r, c.InfoMsg().SignedInMsg)
-	//c.RedirectWithFlash(w, r, UserPath(), m, am.InfoMT)
+	m := c.InfoMsg().SignedInMsg
+	c.RedirectWithFlash(w, r, c.userLink.Index(), m, am.InfoMT)
 }
 
 func (c *WebController) rerenderUserForm(w http.ResponseWriter, r *http.Request,
