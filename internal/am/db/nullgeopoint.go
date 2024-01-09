@@ -1,4 +1,4 @@
-package pg
+package db
 
 import (
 	"fmt"
@@ -19,6 +19,13 @@ func NewGeoPoint(lng, lat, alt float64) am.GeoPoint {
 type NullGeoPoint struct {
 	am.GeoPoint
 	Valid bool
+}
+
+func NewNullGeoPoint(point am.GeoPoint) NullGeoPoint {
+	return NullGeoPoint{
+		GeoPoint: point,
+		Valid:    true,
+	}
 }
 
 func (n *NullGeoPoint) Scan(value interface{}) error {
