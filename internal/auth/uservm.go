@@ -1,5 +1,9 @@
 package auth
 
+import (
+	"github.com/adriancrafter/todoapp/internal/am"
+)
+
 type (
 	UsersVM struct {
 		List []UserVM `json:"users"`
@@ -16,8 +20,18 @@ type (
 	}
 
 	SigninVM struct {
-		TenantID string `json:"tenantID" schema:"tenant-id"`
+		TenantID string
 		Username string `json:"username" schema:"username"`
 		Password string `json:"password" schema:"password"`
+		IP       string
+		GeoData  am.GeoPoint
 	}
 )
+
+func NewSigninVM(tid string, ip string, gd am.GeoPoint) SigninVM {
+	return SigninVM{
+		TenantID: tid,
+		IP:       ip,
+		GeoData:  gd,
+	}
+}

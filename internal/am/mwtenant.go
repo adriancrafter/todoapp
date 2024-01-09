@@ -5,6 +5,8 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+
+	"github.com/adriancrafter/todoapp/internal/am/errors"
 )
 
 const (
@@ -23,4 +25,12 @@ func TenantID(next http.Handler) http.Handler {
 
 		next.ServeHTTP(w, r)
 	})
+}
+
+func GetTenantID(r *http.Request) (string, error) {
+	tenantID, ok := r.Context().Value(TenantIDKey).(string)
+	if !ok {
+		return "", errors.NewError("tenantID not found in request")
+	}
+	return tenantID, nil
 }
