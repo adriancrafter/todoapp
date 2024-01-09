@@ -14,8 +14,11 @@ func ToUserVM(m User) UserVM {
 
 func ToSigninModel(si SigninVM) Signin {
 	return Signin{
+		TenantID: si.TenantID,
 		Username: si.Username,
 		Password: si.Password,
+		IP:       si.IP,
+		GeoData:  si.GeoData,
 	}
 }
 
