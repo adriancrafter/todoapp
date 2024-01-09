@@ -5,7 +5,7 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/adriancrafter/todoapp/internal/am/db/pg"
+	"github.com/adriancrafter/todoapp/internal/am/db"
 )
 
 type UserDA struct {
@@ -20,7 +20,7 @@ type UserDA struct {
 	LastIP            sql.NullString  `db:"last_ip"`
 	ConfirmationToken sql.NullString  `db:"confirmation_token"`
 	IsConfirmed       sql.NullBool    `db:"is_confirmed"`
-	LastGeoLocation   pg.NullGeoPoint `db:"last_geolocation"`
+	LastGeoLocation   db.NullGeoPoint `db:"last_geolocation"`
 	Since             sql.NullTime    `db:"since"`
 	Until             sql.NullTime    `db:"until"`
 	IsActive          sql.NullBool    `db:"is_active"`
@@ -38,7 +38,11 @@ type UserAuthDA struct {
 }
 
 type SigninDA struct {
-	Username sql.NullString `db:"username"`
-	Password sql.NullString `db:"password"`
-	Email    sql.NullString `db:"email"`
+	TenantID sql.NullString  `db:"tenant_id"`
+	Slug     sql.NullString  `db:"slug"`
+	Username sql.NullString  `db:"username"`
+	Password sql.NullString  `db:"password"`
+	Email    sql.NullString  `db:"email"`
+	IP       sql.NullString  `db:"ip"`
+	GeoData  db.NullGeoPoint `db:"geodata"`
 }
